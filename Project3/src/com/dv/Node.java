@@ -1,5 +1,7 @@
 package com.dv;
 
+import com.dv.extra.DVData;
+
 public class Node {
 
 	//private DVTable dvtable;
@@ -38,6 +40,7 @@ public class Node {
 		this.costMatrix[sourceIndex] [destinationIndex] = cost;
 		//this.costMatrix[destination -1] [source -1] = cost;
 	}
+	
 	
 	public boolean isNeighbour(int destinationIndex){
 		if(this.adjacencyMatrix[destinationIndex] == 1)
