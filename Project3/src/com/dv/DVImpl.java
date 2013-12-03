@@ -230,14 +230,26 @@ public class DVImpl {
 	
 	public void printRoutingTable(int nodeIndex){
 		float [][] costMatrix = nodes[nodeIndex].getCostMatrix();
-		System.out.println("========= Routing table for node " + (nodeIndex +1) + "=======");
-		for(int i=0; i < noOfNodes; i ++){
+		System.out.println("--------------------------------------------------------------------------------------------------------");
+		System.out.println("Routing Table for Node " + (nodeIndex +1));
+		for(int i=0; i < noOfNodes; i ++){			
+			System.out.print("Node " + (i+1) + " :");
 			for(int j = 0; j < noOfNodes; j ++){
-				System.out.print(costMatrix[i][j] + "\t");
+				if(Float.MAX_VALUE != costMatrix[i][j]){
+					System.out.print(costMatrix[i][j] + "\t");
+				}
+			
 			}
 			System.out.println();
+			
 		}
-		System.out.println("=========");
+		System.out.println("--------------------------------------------------------------------------------------------------------");
+	}
+	
+	public void printAllRoutingTables(){
+		for(int i = 0; i < this.noOfNodes; i++){
+			printRoutingTable(i);
+		}
 	}
 	private void printCostMatrix(){
 		for(int i=0; i < adjacencyMatrix.length; i ++){
@@ -323,11 +335,12 @@ public static void main(String args[]){
 		
 		DVImpl dvImpl = new DVImpl(initialNode, fileName, node1, node2);
 		dvImpl.simulate_new();
+		//dvImpl.printAllRoutingTables();
 		dvImpl.printRoutingTable(node1-1);
 		dvImpl.printRoutingTable(node2-1);
 		dvImpl.printCostOfLeastPath(node1 - 1, node2 - 1);
 		
-		System.out.println("Max iterations: " +dvImpl.maxIterations());
+		//System.out.println("Max iterations: " +dvImpl.maxIterations());
 		
 	}else{
 		System.out.println("Insufficient parameters");
