@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="lsJar" name="Project3">
+    <property environment="env"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="1.6"/>
+    <property name="source" value="1.6"/>
+    <path id="Project3.classpath">
+        <pathelement location="classes"/>
+    </path>
+    <target name="init">
+        <mkdir dir="classes"/>
+        <copy includeemptydirs="false" todir="classes">
+            <fileset dir="src">
+                <exclude name="**/*.launch"/>
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="classes"/>
+    	<delete file="dv.jar"/>
+    	<delete file="extra.jar"/>
+    	<delete file="ls.jar"/>
+    </target>
+     
+              	<target name="CreateDvJar" depends="build" description="Create Jar file">
+              	                        <jar jarfile="dv.jar">
+              	                        <fileset dir="./classes"/>                        
+              	                        	<manifest>
+              	                        		<attribute name="Main-Class" value="com.dv.DVImpl"/>
+              	                        	</manifest>
+              	                        </jar>
+              	                </target>
+              	<target name="extraJar" depends="CreateDvJar" description="Create Jar file">
+              	              	                        <jar jarfile="extra.jar">
+              	              	                        <fileset dir="./classes"/>                        
+              	              	                        	<manifest>
+              	              	                        		<attribute name="Main-Class" value="com.dv.extra.Main"/>
+              	              	                        	</manifest>
+              	              	                        </jar>
+              	              	                </target>
+              	<target name="lsJar" depends="extraJar" description="Create Jar file">
+              	              	              	                        <jar jarfile="ls.jar">
+              	              	              	                        <fileset dir="./classes"/>                        
+              	              	              	                        	<manifest>
+              	              	              	                        		<attribute name="Main-Class" value="com.example.routingAlgo.DikstrasAlgo"/>
+              	              	              	                        	</manifest>
+              	              	              	                        </jar>
+              	              	              	                </target>
+     
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="classes" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="Project3.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target name="DVImpl">
+        <java classname="com.dv.DVImpl" failonerror="true" fork="yes">
+            <arg line="10 small-net.txt 4 5"/>
+            <classpath refid="Project3.classpath"/>
+        </java>
+    </target>
+</project>
